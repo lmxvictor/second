@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			body {
+				position:relative;
+				height:1000px;
+				width:100%;
+				overflow:hidden;
+			}
+			span {
+				display:block;
+			}
+
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		$(function() {
+			    setInterval(function() {
+			    	//clientWidth 对象内容的可视区的宽度，不包滚动条等边线，会随对象显示大小的变化而改变。
+			        var maxW = document.body.clientWidth;
+			            maxH = document.body.clientHeight;
+			            left = Math.random() * maxW;
+			            opacity = 0.7 + 0.3 * Math.random();
+			            //字体20-30
+			            size = 20 + 10 * Math.random(), 
+			            a=Math.floor(Math.random()*256).toString(16);
+			            b=Math.floor(Math.random()*256).toString(16);
+			            c=Math.floor(Math.random()*256).toString(16);
+			            color = "#"+a+b+c;
+			            //产生0-9随机数
+			            num = Math.floor(Math.random() * 99);
+			        var styles = 'position:absolute;top:0px;font-size:' + size + 'px;color:' + color + ';left:' + left + 'px;opacity:' + opacity;
+			        var div = '<span class = "dd" style="' + styles + '">' + num + '</span>'
+			        $('body').append(div)
+			        $('span').animate({
+			            top: maxH,
+			            left: left
+			        }, 2000, function() {
+			        	//要把落下的去掉，不然会越积越多
+			            $(this).remove()
+			        });
+			    }, 20) //20ms产生一个		
+			})
+	</script>
+</html>

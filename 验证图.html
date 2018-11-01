@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.con {
+				padding:20px;
+				border:1px solid #000;
+				height:120px;
+				width:320px;
+				margin:100px auto;
+			}
+			.con .con-box {
+				height:100px;
+				width:320px;
+				background:url("http://www.jq22.com/img/cs/500x300-2.png") no-repeat center;
+				position:relative;
+			}
+			.con .con-box .con-slide {
+				position:absolute;
+				top:0;
+				left:0px;
+				width:60px;
+				height:100px;
+				background-repeat:no-repeat;
+				background-position:right center;
+				background-image:url("http://www.jq22.com/img/cs/300x500-1.png");
+			}
+			input[type=range] {
+				width:100%;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="con">
+		    <div class="con-box">
+		        <div class="con-slide" id="conSlide"></div>
+		    </div>
+		    <input type="range" id="range" value="0">
+		</div>
+	</body>
+	<script type="text/javascript">
+		slide(range, conSlide, {
+		     max: 320,
+		     err: 10,
+		 })
+		 /*
+		  * 滑动验证
+		  * range：滑动条 conSlide：划片 obj: max(最大滑动值)，err(误差值)
+		  *因为只针对一个图做的匹配，其中滑动的最完美值是320px的位置。
+		  * */
+		
+		 function slide(range, conSlide, obj) {
+		     var rangeValue;
+		     var flag = false;
+		     if (obj.max) {
+		         range.max = obj.max;
+		     }
+		     //鼠标按下
+		     range.onmousedown = function() {
+		         flag = true;
+		         if (flag) {
+		         	//鼠标移动
+		             range.onmousemove = function() {
+		                 rangeValue = range.value;
+		                 conSlide.style.left = rangeValue + "px";
+		             }
+		         }
+		     }
+		
+		     range.onmouseup = function() {
+		         flag = false;
+		         range.onmousemove = null;
+		         if (obj.err) {
+		             if (rangeValue >= (232 - obj.err) && rangeValue <= (232 + obj.err)) {
+		                 alert("验证成功");
+		             }
+		         }else {
+		            if (rangeValue <= (232 - obj.err) || rangeValue >= (232 + obj.err)) {
+		                 alert("验证失败");
+		             }
+		         }
+		
+		         conSlide.style.left = "0px";
+		         range.value = 0;
+		     }
+		 }
+	</script>
+</html>
